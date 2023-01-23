@@ -2,6 +2,8 @@ import React from "react"
 
 export default function Register(props) {
 
+
+    //button animation
     const [mouseOv, setMouseOv] = React.useState(false)
 
     function chageColor() {
@@ -11,9 +13,8 @@ export default function Register(props) {
         setMouseOv(false)
     }
 
-    const [data, setData] = React.useState({});
 
-
+    //send JSON data to the server 
     async function handleSubmit(event) {
         event.preventDefault()
         const object = {
@@ -22,17 +23,18 @@ export default function Register(props) {
             email: event.target.email.value,
             address: event.target.address.value,
         }
-        setData(object)
 
-        const formData = new FormData();
-        formData.append('1', JSON.stringify(object));
-
-        fetch('http://localhost:3001/register', {
+        await fetch('http://localhost:4000/register', {
             method: 'POST',
-            body: formData,
-          });
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(object)
+        })
 
     }
+
 
     return (
 
@@ -41,8 +43,6 @@ export default function Register(props) {
             <input name="username" type="text" placeholder="Username" />
             <input name="address" type="text" placeholder="Address" />
             <input name="email" type="email" placeholder="E-mail" />
-
-
 
 
             <button type="submit" style={{ backgroundColor: mouseOv ? "black" : "white" }}

@@ -3,16 +3,41 @@ import React from "react";
 
 export default function Profile(props) {
 
+   //button styles
+   const [mouseOv, setMouseOv] = React.useState(false)
+
+   function chageColor() {
+       setMouseOv(true)
+      }
+   function changeBack(){
+       setMouseOv(false)
+      }
+
+   //send JSON data to the server 
+ 
+   async function handleClick(event) {
+
+       await fetch('http://localhost:4000/logout', {
+           method: 'GET',
+           headers: {
+               'Accept': 'application/json',
+               'Content-Type': 'application/json',
+           }
+       })
+
+   }
     const [message, setMessage] = React.useState("");
 
+    let isRegistred = false;
+
     React.useEffect(() => {
-      fetch("http://localhost:3001/")
+      fetch("http://localhost:4000/")
         .then((res) => res.json())
         .then((data) => setMessage(data.message));
     }, []);
 
 
-    let isRegistred = false;
+   
 
     // clock
     const [time, setTime] = React.useState(new Date().toLocaleTimeString().replace(/(.*)\D\d+/, '$1'))
@@ -35,6 +60,11 @@ export default function Profile(props) {
 
          <h2>Your address</h2>
          <p>spesification on your profile</p>
+
+         <button type="submit" style={{backgroundColor: mouseOv ? "black" : "white"}} 
+        onMouseOver={chageColor}  
+        onMouseLeave={changeBack}
+        onClick={handleClick}>LogOut</button>
 
         </div>
         :
