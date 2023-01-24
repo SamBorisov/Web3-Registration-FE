@@ -12,18 +12,18 @@ import {Routes, Route} from 'react-router-dom';
 export default function App() {
 
 
-     
+  
+
     return(
         <div>
             <Header />
 
-            
+
             <Routes>
                 <Route  path="/" element={<Profile />} />
                 <Route exact path="/login" element={<Login />} />
                 <Route exact path="/register" element={<Register />} />
             </Routes>
-
 
 
             <Footer />
