@@ -1,5 +1,9 @@
 import React from "react"
 
+import { useConnectWallet } from '@web3-onboard/react'
+import { ethers } from 'ethers'
+
+
 export default function Register(props) {
 
 
@@ -13,15 +17,23 @@ export default function Register(props) {
         setMouseOv(false)
     }
 
+    // to get the wallet 
+    const [{ wallet}] = useConnectWallet()
 
     //send JSON data to the server 
     async function handleSubmit(event) {
         event.preventDefault()
+
+        if (wallet) {
+            new ethers.providers.Web3Provider(wallet.provider, 'any')
+            console.log(wallet.accounts[0].address)
+            let address = wallet.accounts[0].address;
+
         const object = {
             name: event.target.name.value,
             username: event.target.username.value,
             email: event.target.email.value,
-            address: event.target.address.value,
+            address: address,
         }
 
         await fetch('http://localhost:4000/register', {
@@ -32,8 +44,10 @@ export default function Register(props) {
             },
             body: JSON.stringify(object)
         })
+    }
 
     }
+
 
 
     return (
@@ -41,7 +55,6 @@ export default function Register(props) {
         <form onSubmit={handleSubmit} className="form">
             <input name="name" type="text" placeholder="Name" />
             <input name="username" type="text" placeholder="Username" />
-            <input name="address" type="text" placeholder="Address" />
             <input name="email" type="email" placeholder="E-mail" />
 
 

@@ -1,7 +1,10 @@
 import React from "react";
 
+import { useConnectWallet } from '@web3-onboard/react'
 
 export default function Profile(props) {
+
+    const [{ wallet, connecting }, connect, disconnect] = useConnectWallet()
 
    //button styles
    const [mouseOv, setMouseOv] = React.useState(false)
@@ -13,22 +16,10 @@ export default function Profile(props) {
        setMouseOv(false)
       }
 
-   //send JSON data to the server 
- 
-   async function handleClick(event) {
+   //Get JSON data to the server 
 
-       await fetch('http://localhost:4000/logout', {
-           method: 'GET',
-           headers: {
-               'Accept': 'application/json',
-               'Content-Type': 'application/json',
-           }
-       })
-
-   }
     const [message, setMessage] = React.useState("");
 
-    let isRegistred = false;
 
     React.useEffect(() => {
       fetch("http://localhost:4000/")
@@ -55,16 +46,16 @@ export default function Profile(props) {
 
         <h1>{time}</h1>
 
-        {isRegistred ? 
+        {wallet ? 
         <div>
 
          <h2>Your address</h2>
          <p>spesification on your profile</p>
 
-         <button type="submit" style={{backgroundColor: mouseOv ? "black" : "white"}} 
-        onMouseOver={chageColor}  
-        onMouseLeave={changeBack}
-        onClick={handleClick}>LogOut</button>
+        <button 
+        style={{backgroundColor: mouseOv ? "black" : "white"}} onMouseOver={chageColor}  onMouseLeave={changeBack}
+        disabled={connecting} onClick={() => (wallet ? disconnect(wallet) : connect())}> {connecting ? 'connecting' : wallet ? 'LogOut' : 'connect'}
+        </button>
 
         </div>
         :
