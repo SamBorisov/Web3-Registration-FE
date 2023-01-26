@@ -18,13 +18,29 @@ export default function Profile(props) {
 
    //Get JSON data to the server 
 
-    const [message, setMessage] = React.useState("");
+    const [name, setName] = React.useState("");
+    const [username, setUsername] = React.useState("");
+    const [email, setEmail] = React.useState("");
+    const [address, setAddress] = React.useState("");
 
-
+    let token= localStorage.getItem('token');
     React.useEffect(() => {
-      fetch("http://localhost:4000/")
+      fetch("http://localhost:4000/profile", {
+        mode:'cors',
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+ token
+          }
+        })
         .then((res) => res.json())
-        .then((data) => setMessage(data.message));
+        .then((data) => {
+          setName(data.name)
+          setUsername(data.username)
+          setEmail(data.email)
+          setAddress(data.address)
+        });
     }, []);
 
 
@@ -41,16 +57,19 @@ export default function Profile(props) {
 
 
     return(
-    <div className="note">
-
-
-        <h1>{time}</h1>
+    <div>
 
         {wallet ? 
         <div>
 
-         <h2>Your address</h2>
-         <p>spesification on your profile</p>
+         <h3>Hello {name} <br></br>{time}</h3>
+         <h2>Here's your account information:</h2>
+         <div style={{"textAlign":"left"}}>
+         <p><b>Name:</b> {name}</p>
+         <p><b>Username:</b> {username}</p>
+         <p><b>E-mail:</b> {email}</p>
+         <p><b>Blockchain address:</b> {address}</p>
+         </div>
 
         <button 
         style={{backgroundColor: mouseOv ? "black" : "white"}} onMouseOver={chageColor}  onMouseLeave={changeBack}
@@ -60,7 +79,7 @@ export default function Profile(props) {
         </div>
         :
         <div>
-            <h1>{message}</h1>
+            <h3>Greetings <br></br>{time}</h3>
 
         <p>To see your profile please register! <br></br> If you already have an account, log in!</p>
 

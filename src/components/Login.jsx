@@ -39,51 +39,9 @@ export default function Login(props) {
         setMouseOv(false)
        }
 
-    // login and sign 
-
-    // const [signed, setSigned] = React.useState(false);
-    // const { web3 } = useAppState({
-    //   requiredNetwork: 1, //1 for mainnet, 3 for ropsten, etc.
-    //   wallets: ['metamask'],
-    // });
-  
-
-    //   const handleSign = async (e) => {
-    //     e.preventDefault();
-      
-    //     const accounts = await web3.eth.getAccounts();
-    //     if(accounts.length === 0) {
-    //         alert("Please connect to a wallet first!");
-    //         return;
-    //     }
-    //     const msg = 'This is a message to sign';
-    //     const signature = await web3.eth.personal.sign(msg, accounts[0]);
-      
-    //     const data = {
-    //       address: accounts[0],
-    //       msg,
-    //       signature
-    //     };
-      
-    //     // send the data to the server using fetch
-    //     fetch('/sign', {
-    //       method: 'POST',
-    //       headers: {
-    //         'Content-Type': 'application/json'
-    //       },
-    //       body: JSON.stringify(data)
-    //     })
-    //       .then(response => response.json())
-    //       .then(responseData => {
-    //         console.log(responseData);
-    //         setSigned(true);
-    //       })
-    //       .catch(error => {
-    //         console.log(error);
-    //       });
-    //   };
     
-  
+//login and sign with address
+
     const resultBox = useRef();
     const [signatures, setSignatures] = useState([]);
     const [error, setError] = useState();
@@ -99,20 +57,27 @@ export default function Login(props) {
       if (sig) {
         setSignatures([...signatures, sig]);
 
-        fetch('http://localhost:4000/login', {
-            method: 'POST',
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data)
-          })
+          const response = await fetch(
+            'http://localhost:4000/login',
+            {
+              mode:'cors',
+              method: 'POST',
+              headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(sig)
+            }
+          );
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          const data = await response.json();
+          localStorage.setItem('token', data.token);
       }
 
-      };
+    };
     
-
-
     return(
 
 
