@@ -26,7 +26,7 @@ export default function Register(props) {
 
         if (wallet) {
             new ethers.providers.Web3Provider(wallet.provider, 'any')
-            console.log(wallet.accounts[0].address)
+            //console.log(wallet.accounts[0].address)
             let address = wallet.accounts[0].address;
 
         const object = {
@@ -35,8 +35,7 @@ export default function Register(props) {
             email: event.target.email.value,
             address: address,
         }
-
-        await fetch('http://localhost:4000/register', {
+        let response = await fetch('http://localhost:4000/register', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -44,20 +43,28 @@ export default function Register(props) {
             },
             body: JSON.stringify(object)
         })
-    }
 
-    }
-
+                    let data = await response.json();
+                    let {serverRes} = data
+                    if(serverRes){
+                        alert(serverRes)
+                        localStorage.setItem('serverReso', serverRes);
+                        console.log(serverRes)
+                    }
+             }
+        }
 
 
     return (
-
-        
-        <form onSubmit={handleSubmit} className="form">
+    <div>
+        {localStorage.getItem('serverReso') ? 
+            <h3>This address already has registration!</h3>
+            :
+            <form onSubmit={handleSubmit} className="form">
             <h3>Register your address!</h3>
-            <input name="name" type="text" placeholder="Name" />
-            <input name="username" type="text" placeholder="Username" />
-            <input name="email" type="email" placeholder="E-mail" />
+            <input name="name" type="text" placeholder="Name" required/>
+            <input name="username" type="text" placeholder="Username" required/>
+            <input name="email" type="email" placeholder="E-mail" required/>
 
 
             <button type="submit" style={{ backgroundColor: mouseOv ? "black" : "white" }}
@@ -65,7 +72,11 @@ export default function Register(props) {
                 onMouseLeave={changeBack}>Register</button>
 
         </form>
+        }
 
+        
+       
+    </div>
 
     )
 }
