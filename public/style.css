@@ -68,3 +68,10 @@ footer{
     padding: 20px 0;
     position: relative;
   }
+  a {
+    color: #37b6a1;
+    text-decoration: none;
+  }
+  a:hover {
+     color:#078570
+  }

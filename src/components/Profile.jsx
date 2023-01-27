@@ -16,7 +16,7 @@ export default function Profile(props) {
        setMouseOv(false)
       }
 
-   //Get JSON data to the server 
+   //Get JSON data to the server on Get requrest!
 
     const [name, setName] = React.useState("");
     const [username, setUsername] = React.useState("");
@@ -43,7 +43,26 @@ export default function Profile(props) {
         });
     }, []);
 
+    function handleLogOut() {
 
+        fetch("http://localhost:4000/logout", {
+          mode:'cors',
+            method: 'GET',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+            }
+          }).then(response => {
+            if (response.ok) {
+              localStorage.removeItem("token");
+              setName("")
+              setUsername("")
+              setEmail("")
+              setAddress("")
+            }   
+            });
+      
+    }
    
 
     // clock
@@ -57,36 +76,32 @@ export default function Profile(props) {
 
 
     return(
-    <div>
-
-        {wallet ? 
-        <div>
+  
+      <div>
 
          <h3>Hello {name} <br></br>{time}</h3>
+         { name === "" ? 
+         <p>To see your profile details, please register! <br></br> If you already have an account, log in!</p>
+         :
+         <div>
          <h2>Here's your account information:</h2>
          <div style={{"textAlign":"left"}}>
          <p><b>Name:</b> {name}</p>
          <p><b>Username:</b> {username}</p>
          <p><b>E-mail:</b> {email}</p>
          <p><b>Blockchain address:</b> {address}</p>
-         </div>
+      </div>
 
-        <button 
-        style={{backgroundColor: mouseOv ? "black" : "white"}} onMouseOver={chageColor}  onMouseLeave={changeBack}
-        disabled={connecting} onClick={() => (wallet ? disconnect(wallet) : connect())}> {connecting ? 'connecting' : wallet ? 'LogOut' : 'connect'}
+   
+        <button style={{backgroundColor: mouseOv ? "black" : "white"}} onMouseOver={chageColor}  onMouseLeave={changeBack}
+        onClick={handleLogOut}>LogOut
         </button>
-
         </div>
-        :
-        <div>
-            <h3>Greetings <br></br>{time}</h3>
-
-        <p>To see your profile please register! <br></br> If you already have an account, log in!</p>
-
+         }
        </div>
-    }
 
-    </div>
+
+
 
     )
 }

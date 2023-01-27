@@ -52,7 +52,9 @@ export default function Register(props) {
 
     return (
 
+        
         <form onSubmit={handleSubmit} className="form">
+            <h3>Register your address!</h3>
             <input name="name" type="text" placeholder="Name" />
             <input name="username" type="text" placeholder="Username" />
             <input name="email" type="email" placeholder="E-mail" />

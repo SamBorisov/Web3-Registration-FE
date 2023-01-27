@@ -75,18 +75,25 @@ export default function Login(props) {
           const data = await response.json();
           localStorage.setItem('token', data.token);
       }
-
     };
+    var tokenStored = localStorage.getItem('token'); 
     
     return(
 
+      <div>
+        {!tokenStored ?
+          <div>
+          <h3>Login requires a signature from your wallet!</h3>
+          <button style={{backgroundColor: mouseOv ? "black" : "white"}} onMouseOver={chageColor}  onMouseLeave={changeBack}
+          onClick={handleSign}
+          >Login</button>
+          </div>
+        :
+        <h3>You are already logged!</h3>
+        }
 
-    
-        <button style={{backgroundColor: mouseOv ? "black" : "white"}} onMouseOver={chageColor}  onMouseLeave={changeBack}
-        onClick={handleSign}
-        >Login</button>
-
-
+    </div>
+        
 
     )
 }
