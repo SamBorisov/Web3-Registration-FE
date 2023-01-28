@@ -1,7 +1,7 @@
 import React from "react"
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { ethers } from "ethers";
-import { useAppState  } from '@web3-onboard/react';
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -29,6 +29,8 @@ const signMessage = async ({ setError, message }) => {
 
 export default function Login(props) {
 
+  const navigate = useNavigate();
+
     //button styles
     const [mouseOv, setMouseOv] = React.useState(false)
 
@@ -42,16 +44,14 @@ export default function Login(props) {
     
 //login and sign with address
 
-    const resultBox = useRef();
+
     const [signatures, setSignatures] = useState([]);
-    const [error, setError] = useState();
   
     const handleSign = async (e) => {
       e.preventDefault();
       const data = "Do you want to Log In?";
-      setError();
+
       const sig = await signMessage({
-        setError,
         message: data
       });
       if (sig) {
@@ -74,6 +74,8 @@ export default function Login(props) {
           }
           const data = await response.json();
           localStorage.setItem('token', data.token);
+          alert('You are Logged!')
+          navigate("/")
       }
     };
     var tokenStored = localStorage.getItem('token'); 

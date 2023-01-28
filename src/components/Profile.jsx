@@ -1,10 +1,8 @@
 import React from "react";
 
-import { useConnectWallet } from '@web3-onboard/react'
 
 export default function Profile(props) {
 
-    const [{ wallet, connecting }, connect, disconnect] = useConnectWallet()
 
    //button styles
    const [mouseOv, setMouseOv] = React.useState(false)
@@ -93,7 +91,7 @@ export default function Profile(props) {
       </div>
 
    
-        <button style={{backgroundColor: mouseOv ? "black" : "white"}} onMouseOver={chageColor}  onMouseLeave={changeBack}
+        <button style={{backgroundColor: mouseOv ? "#ab4b52" : "white"}} onMouseOver={chageColor}  onMouseLeave={changeBack}
         onClick={handleLogOut}>LogOut
         </button>
         </div>

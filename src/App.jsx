@@ -4,7 +4,8 @@ import Footer from "./components/Footer"
 import Profile from "./components/Profile"
 import Login from './components/Login';
 import Register from './components/Register';
-import {Routes, Route} from 'react-router-dom';
+import {Routes, Route, useNavigate} from 'react-router-dom';
+
 
 import { init, useConnectWallet } from '@web3-onboard/react'
 import injectedModule from '@web3-onboard/injected-wallets'
@@ -29,6 +30,8 @@ init({
 
 
 export default function App() {
+
+  const navigate = useNavigate();
 
     //button styles
    const [mouseOv, setMouseOv] = React.useState(false)
@@ -55,7 +58,7 @@ export default function App() {
             <h1 style={{paddingTop:"10%"}}>Welcome, please connect your wallet to use this App!</h1>
             <button 
             style={{ backgroundColor: mouseOv ? "black" : "white", marginTop:"15%"}} onMouseOver={chageColor} onMouseLeave={changeBack}
-            disabled={connecting} onClick={() => (wallet ? disconnect(wallet) : connect())}> {connecting ? 'connecting' : wallet ? 'disconnect' : 'connect'}
+            disabled={connecting} onClick={() => (wallet ? disconnect(wallet) : connect().then(navigate("/register")))}> {connecting ? 'connecting' : wallet ? 'disconnect' : 'connect'}
             </button>
             </div>
             :
