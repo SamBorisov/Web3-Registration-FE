@@ -59,7 +59,7 @@ export default function Register(props) {
             email: event.target.email.value,
             address: address,
         }
-        let response = await fetch('http://localhost:4000/register', {
+        let response = await fetch('https://web3-registration-be.azurewebsites.net/register', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -93,7 +93,7 @@ export default function Register(props) {
         setSignatures([...signatures, sig]);
 
           const response = await fetch(
-            'http://localhost:4000/delete',
+            'https://web3-registration-be.azurewebsites.net/delete',
             {
               mode:'cors',
               method: 'POST',

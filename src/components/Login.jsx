@@ -58,7 +58,7 @@ export default function Login(props) {
         setSignatures([...signatures, sig]);
 
           const response = await fetch(
-            'http://localhost:4000/login',
+            'https://web3-registration-be.azurewebsites.net/login',
             {
               mode:'cors',
               method: 'POST',
