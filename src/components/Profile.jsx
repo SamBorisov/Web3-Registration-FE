@@ -23,7 +23,7 @@ export default function Profile(props) {
 
     let token= localStorage.getItem('token');
     React.useEffect(() => {
-      fetch("https://web3-registration-be.azurewebsites.net/profile", {
+      fetch("http://localhost:4000/profile", {
         mode:'cors',
           method: 'GET',
           headers: {
@@ -43,7 +43,7 @@ export default function Profile(props) {
 
     function handleLogOut() {
 
-        fetch("https://web3-registration-be.azurewebsites.net/logout", {
+        fetch("http://localhost:4000/logout", {
           mode:'cors',
             method: 'GET',
             headers: {
