@@ -94,7 +94,7 @@ export default function Profile(props) {
       </div>
 
    
-        <button style={{backgroundColor: mouseOv ? "#FF7377" : "white"}} onMouseOver={chageColor}  onMouseLeave={changeBack}
+        <button style={{backgroundColor: mouseOv ? "#ffa07a" : "white"}} onMouseOver={chageColor}  onMouseLeave={changeBack}
         onClick={handleLogOut}>LogOut
         </button>
         </div>

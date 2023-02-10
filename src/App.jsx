@@ -55,9 +55,9 @@ export default function App() {
         <div>
         {!wallet ? 
             <div>
-            <h1 style={{paddingTop:"10%"}}>Welcome, please connect your wallet to use this App!</h1>
+            <h3 style={{paddingTop:"10%"}}>Welcome, please connect your wallet to use this App!</h3>
             <button 
-            style={{ backgroundColor: mouseOv ? "black" : "white", marginTop:"15%"}} onMouseOver={chageColor} onMouseLeave={changeBack}
+            style={{ backgroundColor: mouseOv ? "#B1B1B1" : "white", marginTop:"15%"}} onMouseOver={chageColor} onMouseLeave={changeBack}
             disabled={connecting} onClick={() => (wallet ? disconnect(wallet) : connect().then(navigate("/register")))}> {connecting ? 'connecting' : wallet ? 'disconnect' : 'connect'}
             </button>
             </div>

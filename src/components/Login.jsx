@@ -79,7 +79,7 @@ export default function Login(props) {
               throw new Error(`HTTP error! status: ${response.status}`);
             }
           }
-          
+
           const data = await response.json();
           localStorage.setItem('token', data.token);
           alert('You are Logged!')
@@ -94,7 +94,7 @@ export default function Login(props) {
         {!tokenStored ?
           <div>
           <h3>Login requires a signature from your wallet!</h3>
-          <button style={{backgroundColor: mouseOv ? "black" : "white"}} onMouseOver={chageColor}  onMouseLeave={changeBack}
+          <button style={{backgroundColor: mouseOv ? "#B1B1B1" : "white"}} onMouseOver={chageColor}  onMouseLeave={changeBack}
           onClick={handleSign}
           >Login</button>
           </div>

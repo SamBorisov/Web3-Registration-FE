@@ -127,7 +127,7 @@ export default function Register(props) {
         {localStorage.getItem('serverReso') ? 
             <div>
             <h3>This address already has registration!</h3>
-            <button style={{ backgroundColor: mouseOv ? "#FF7377" : "white" }} onMouseOver={chageColor} onMouseLeave={changeBack}
+            <button style={{ backgroundColor: mouseOv ? "#ffa07a" : "white" }} onMouseOver={chageColor} onMouseLeave={changeBack}
             onClick={handleDelete}>Delete Profile</button>
             </div>
             :
@@ -138,7 +138,7 @@ export default function Register(props) {
             <input name="email" type="email" placeholder="E-mail" required/>
 
 
-            <button type="submit" style={{ backgroundColor: mouseOv ? "black" : "white" }}
+            <button type="submit" style={{ backgroundColor: mouseOv ? "#B1B1B1" : "white" }}
                 onMouseOver={chageColor}
                 onMouseLeave={changeBack}>Register</button>
 
