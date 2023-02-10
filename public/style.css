@@ -11,20 +11,22 @@
 header{
   display: flex;
   margin: 0;
+  margin-left: 15%;
 }
 footer{
-  position: relative;
-  padding-top: 35%;
+  position: fixed;
   color: #078570;
+  bottom: 0;
+  margin-left: 9%;
 }
 
   h4 {
     padding: 0 5%;
     font-weight: 900;
-    font-size: 200%;
+    font-size: 150%;
     text-align: center;
     margin-top: 4rem;
-    color: #078570;
+    color: #37b6a1;
     line-height: 1.2;
 
   }
@@ -58,7 +60,7 @@ footer{
     background-color: white;
     border: 0;
     padding: 10px 15px;
-    color: #50a3a2;
+    color: #078570;
     border-radius: 3px;
     width: 250px;
     font-size: 18px;
@@ -74,4 +76,7 @@ footer{
   }
   a:hover {
      color:#078570
+  }
+  .pdata {
+    color: #078570;
   }

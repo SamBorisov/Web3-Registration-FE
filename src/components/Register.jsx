@@ -127,7 +127,7 @@ export default function Register(props) {
         {localStorage.getItem('serverReso') ? 
             <div>
             <h3>This address already has registration!</h3>
-            <button style={{ backgroundColor: mouseOv ? "#ab4b52" : "white" }} onMouseOver={chageColor} onMouseLeave={changeBack}
+            <button style={{ backgroundColor: mouseOv ? "#FF7377" : "white" }} onMouseOver={chageColor} onMouseLeave={changeBack}
             onClick={handleDelete}>Delete Profile</button>
             </div>
             :

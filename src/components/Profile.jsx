@@ -23,23 +23,26 @@ export default function Profile(props) {
 
     let token= localStorage.getItem('token');
     React.useEffect(() => {
-      fetch("http://localhost:4000/profile", {
-        mode:'cors',
-          method: 'GET',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer '+ token
-          }
-        })
-        .then((res) => res.json())
-        .then((data) => {
-          setName(data.name)
-          setUsername(data.username)
-          setEmail(data.email)
-          setAddress(data.address)
-        });
-    }, []);
+      function fetchData() {
+        fetch("http://localhost:4000/profile", {
+          mode:'cors',
+            method: 'GET',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer '+ token
+            }
+          })
+          .then((res) => res.json())
+          .then((data) => {
+            setName(data.name)
+            setUsername(data.username)
+            setEmail(data.email)
+            setAddress(data.address)
+          });
+      }
+    fetchData()
+    }, [token]);
 
     function handleLogOut() {
 
@@ -79,19 +82,19 @@ export default function Profile(props) {
 
          <h3>Hello {name} <br></br>{time}</h3>
          { name === "" ? 
-         <p>To see your profile details, please register! <br></br> If you already have an account, log in!</p>
+         <h4>To see your profile details, log in. <br></br> If you don't have an account, register!</h4>
          :
          <div>
-         <h2>Here's your account information:</h2>
+         <h4>Here's your account information:</h4>
          <div style={{"textAlign":"left"}}>
-         <p><b>Name:</b> {name}</p>
-         <p><b>Username:</b> {username}</p>
-         <p><b>E-mail:</b> {email}</p>
-         <p><b>Blockchain address:</b> {address}</p>
+         <p className="pdata"><b>Name:</b> {name}</p>
+         <p className="pdata"><b>Username:</b> {username}</p>
+         <p className="pdata"><b>E-mail:</b> {email}</p>
+         <p className="pdata"><b>Blockchain address:</b> {address}</p>
       </div>
 
    
-        <button style={{backgroundColor: mouseOv ? "#ab4b52" : "white"}} onMouseOver={chageColor}  onMouseLeave={changeBack}
+        <button style={{backgroundColor: mouseOv ? "#FF7377" : "white"}} onMouseOver={chageColor}  onMouseLeave={changeBack}
         onClick={handleLogOut}>LogOut
         </button>
         </div>

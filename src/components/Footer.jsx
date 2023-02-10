@@ -22,7 +22,7 @@ export default function Footer() {
             
         {wallet ? 
         <button 
-        style={{backgroundColor: mouseOv ? "#ab4b52 " : "white"}} onMouseOver={chageColor}  onMouseLeave={changeBack}
+        style={{backgroundColor: mouseOv ? "#FF7377 " : "white"}} onMouseOver={chageColor}  onMouseLeave={changeBack}
         disabled={connecting} onClick={() => (wallet ? disconnect(wallet) : connect())}> {connecting ? 'connecting' : wallet ? 'disconnect' : 'connect'}
         </button>
         :
