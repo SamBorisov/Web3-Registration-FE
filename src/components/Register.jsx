@@ -69,7 +69,11 @@ export default function Register(props) {
         })
 
                     let data = await response.json();
-                    let {serverRes} = data
+                    let {serverRes} = data;
+                    let {message} = data;
+                    if(message) {
+                      alert(message)
+                    }
                     if(serverRes){
                         alert(serverRes)
                         localStorage.setItem('serverReso', serverRes);
