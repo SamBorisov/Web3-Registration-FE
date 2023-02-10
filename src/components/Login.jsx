@@ -46,6 +46,8 @@ export default function Login(props) {
 
 
     const [signatures, setSignatures] = useState([]);
+
+
   
     const handleSign = async (e) => {
       e.preventDefault();
@@ -70,8 +72,14 @@ export default function Login(props) {
             }
           );
           if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            if (response.status === 401) {
+              alert('Using address without registration!')
+              console.error('Unauthorized');
+            } else {
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
           }
+          
           const data = await response.json();
           localStorage.setItem('token', data.token);
           alert('You are Logged!')

@@ -17,7 +17,10 @@ footer{
   position: fixed;
   color: #078570;
   bottom: 0;
-  margin-left: 9%;
+  right: 0;
+  left: 0;
+  height: 50px;
+  margin: 0 auto;
 }
 
   h4 {
