@@ -28,9 +28,7 @@ export default function Footer() {
         :
         null
         }
-
-
-         <p>{name} Copyright © {day} </p>
+        <p>{name} Copyright © {day} </p>
         </footer>
     )
 }
