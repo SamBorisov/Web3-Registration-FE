@@ -11,7 +11,7 @@ export default function Profile() {
     let token= localStorage.getItem('token');
     useEffect(() => {
       function fetchData() {
-        fetch("http://localhost:4000/profile", {
+        fetch("https://web3-registration-be.azurewebsites.net/profile", {
           mode:'cors',
             method: 'GET',
             headers: {
@@ -31,7 +31,7 @@ export default function Profile() {
 
     function handleLogOut() {
 
-        fetch("http://localhost:4000/logout", {
+        fetch("https://web3-registration-be.azurewebsites.net/logout", {
           mode:'cors',
             method: 'GET',
             headers: {
