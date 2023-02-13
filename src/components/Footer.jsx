@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "../helpers/Button";
 import { useConnectWallet } from '@web3-onboard/react'
 
 export default function Footer() {
@@ -7,24 +8,13 @@ export default function Footer() {
     let day = new Date().getFullYear();
 
     const [{ wallet, connecting }, connect, disconnect] = useConnectWallet()
-     //button styles
-   const [mouseOv, setMouseOv] = React.useState(false)
 
-   function chageColor() {
-       setMouseOv(true)
-      }
-   function changeBack(){
-       setMouseOv(false)
-      }
 
     return(
         <footer>
             
         {wallet ? 
-        <button 
-        style={{backgroundColor: mouseOv ? "#ffa07a " : "white"}} onMouseOver={chageColor}  onMouseLeave={changeBack}
-        disabled={connecting} onClick={() => (wallet ? disconnect(wallet) : connect())}> {connecting ? 'connecting' : wallet ? 'disconnect' : 'connect'}
-        </button>
+        <Button func={() => (wallet ? disconnect(wallet) : connect())} text={connecting ? 'connecting' : wallet ? 'disconnect' : 'connect'} color="#ffa07a"/>
         :
         null
         }

@@ -1,46 +1,14 @@
-import React from "react"
+import React, { useState } from "react"
 import { useNavigate } from "react-router-dom";
+import Button from "../helpers/Button";
 
 import { useConnectWallet } from '@web3-onboard/react'
 import { ethers } from 'ethers'
 
 
-const signMessage = async ({ setError, message }) => {
-    try {
-      console.log({ message });
-      if (!window.ethereum)
-        throw new Error("No crypto wallet found. Please install it.");
-  
-      await window.ethereum.send("eth_requestAccounts");
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
-      const signature = await signer.signMessage(message);
-      const address = await signer.getAddress();
-  
-      return {
-        message,
-        signature,
-        address
-      };
-    } catch (err) {
-      setError(err.message);
-    }
-  };
-
-
 export default function Register(props) {
 
     const navigate = useNavigate();
-
-    //button animation
-    const [mouseOv, setMouseOv] = React.useState(false)
-
-    function chageColor() {
-        setMouseOv(true)
-    }
-    function changeBack() {
-        setMouseOv(false)
-    }
 
     // to get the wallet 
     const [{ wallet}] = useConnectWallet()
@@ -83,14 +51,14 @@ export default function Register(props) {
              }
         }
 
-        //delete account 
-    const [signatures, setSignatures] = React.useState([]);
+    //delete account 
+    const [signatures, setSignatures] = useState([]);
   
     const handleDelete = async (e) => {
       e.preventDefault();
       const data = "Do you want to Delete your registation and data?";
 
-      const sig = await signMessage({
+      const sig = await props.sign({
         message: data
       });
       if (sig) {
@@ -127,8 +95,7 @@ export default function Register(props) {
         {localStorage.getItem('serverReso') ? 
             <div>
             <h3>This address already has registration!</h3>
-            <button style={{ backgroundColor: mouseOv ? "#ffa07a" : "white" }} onMouseOver={chageColor} onMouseLeave={changeBack}
-            onClick={handleDelete}>Delete Profile</button>
+            <Button func={handleDelete} text="Delete Profile" color="#ffa07a"/>
             </div>
             :
             <form onSubmit={handleSubmit} className="form">
@@ -137,10 +104,8 @@ export default function Register(props) {
             <input name="username" type="text" placeholder="Username" required/>
             <input name="email" type="email" placeholder="E-mail" required/>
 
-
-            <button type="submit" style={{ backgroundColor: mouseOv ? "#B1B1B1" : "white" }}
-                onMouseOver={chageColor}
-                onMouseLeave={changeBack}>Register</button>
+            <Button type="submit" text="Register" color="#B1B1B1"/>
+                
 
         </form>
         }

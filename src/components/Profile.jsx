@@ -1,28 +1,15 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
+import Button from "../helpers/Button";
 
 
-export default function Profile(props) {
+export default function Profile() {
 
-
-   //button styles
-   const [mouseOv, setMouseOv] = React.useState(false)
-
-   function chageColor() {
-       setMouseOv(true)
-      }
-   function changeBack(){
-       setMouseOv(false)
-      }
 
    //Get JSON data to the server on Get requrest!
-
-    const [name, setName] = React.useState("");
-    const [username, setUsername] = React.useState("");
-    const [email, setEmail] = React.useState("");
-    const [address, setAddress] = React.useState("");
+    const [data, setData] = useState({});
 
     let token= localStorage.getItem('token');
-    React.useEffect(() => {
+    useEffect(() => {
       function fetchData() {
         fetch("http://localhost:4000/profile", {
           mode:'cors',
@@ -35,10 +22,8 @@ export default function Profile(props) {
           })
           .then((res) => res.json())
           .then((data) => {
-            setName(data.name)
-            setUsername(data.username)
-            setEmail(data.email)
-            setAddress(data.address)
+            setData(data)
+            console.log(data)
           });
       }
     fetchData()
@@ -56,10 +41,7 @@ export default function Profile(props) {
           }).then(response => {
             if (response.ok) {
               localStorage.removeItem("token");
-              setName("")
-              setUsername("")
-              setEmail("")
-              setAddress("")
+              setData({})
             }   
             });
       
@@ -67,7 +49,7 @@ export default function Profile(props) {
    
 
     // clock
-    const [time, setTime] = React.useState(new Date().toLocaleTimeString().replace(/(.*)\D\d+/, '$1'))
+    const [time, setTime] = useState(new Date().toLocaleTimeString().replace(/(.*)\D\d+/, '$1'))
   
     function rederTime() {
       const time2 = new Date().toLocaleTimeString().replace(/(.*)\D\d+/, '$1');
@@ -80,23 +62,19 @@ export default function Profile(props) {
   
       <div>
 
-         <h3>Hello {name} <br></br>{time}</h3>
-         { name === "" ? 
+         <h3>Hello {data.name} <br></br>{time}</h3>
+         { Object.keys(data).length === 0 ? 
          <h4>To see your profile details, log in. <br></br> If you don't have an account, register!</h4>
          :
          <div>
          <h4>Here's your account information:</h4>
          <div style={{"textAlign":"left"}}>
-         <p className="pdata"><b>Name:</b> {name}</p>
-         <p className="pdata"><b>Username:</b> {username}</p>
-         <p className="pdata"><b>E-mail:</b> {email}</p>
-         <p className="pdata"><b>Blockchain address:</b> {address}</p>
+         <p className="pdata"><b>Name:</b> {data.name}</p>
+         <p className="pdata"><b>Username:</b> {data.username}</p>
+         <p className="pdata"><b>E-mail:</b> {data.email}</p>
+         <p className="pdata"><b>Blockchain address:</b> {data.address}</p>
       </div>
-
-   
-        <button style={{backgroundColor: mouseOv ? "#ffa07a" : "white"}} onMouseOver={chageColor}  onMouseLeave={changeBack}
-        onClick={handleLogOut}>LogOut
-        </button>
+        <Button func={handleLogOut} text="LogOut" color="#ffa07a"/>
         </div>
          }
        </div>

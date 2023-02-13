@@ -1,59 +1,20 @@
-import React from "react"
-import { useState } from "react";
-import { ethers } from "ethers";
+import React, { useState } from "react"
 import { useNavigate } from "react-router-dom";
+import Button from "../helpers/Button";
 
-
-
-const signMessage = async ({ setError, message }) => {
-    try {
-      console.log({ message });
-      if (!window.ethereum)
-        throw new Error("No crypto wallet found. Please install it.");
-  
-      await window.ethereum.send("eth_requestAccounts");
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
-      const signature = await signer.signMessage(message);
-      const address = await signer.getAddress();
-  
-      return {
-        message,
-        signature,
-        address
-      };
-    } catch (err) {
-      setError(err.message);
-    }
-  };
 
 export default function Login(props) {
 
   const navigate = useNavigate();
 
-    //button styles
-    const [mouseOv, setMouseOv] = React.useState(false)
-
-    function chageColor() {
-        setMouseOv(true)
-       }
-    function changeBack(){
-        setMouseOv(false)
-       }
-
-    
 //login and sign with address
-
-
     const [signatures, setSignatures] = useState([]);
 
-
-  
     const handleSign = async (e) => {
       e.preventDefault();
       const data = "Do you want to Log In?";
 
-      const sig = await signMessage({
+      const sig = await props.sign({
         message: data
       });
       if (sig) {
@@ -86,6 +47,7 @@ export default function Login(props) {
           navigate("/")
       }
     };
+
     var tokenStored = localStorage.getItem('token'); 
     
     return(
@@ -94,9 +56,7 @@ export default function Login(props) {
         {!tokenStored ?
           <div>
           <h3>Login requires a signature from your wallet!</h3>
-          <button style={{backgroundColor: mouseOv ? "#B1B1B1" : "white"}} onMouseOver={chageColor}  onMouseLeave={changeBack}
-          onClick={handleSign}
-          >Login</button>
+          <Button func={handleSign} text="Login" color="#B1B1B1"/>
           </div>
         :
         <h3>You are already logged!</h3>
